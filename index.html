@@ -3,140 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الآلة الحاسبة الذكية</title>
+    <title>نظام التقديم على الوظيفة المطور</title>
     <style>
-        /* تنسيق الخلفية العامة للموقع بالوضع الداكن العصري */
-        body { 
-            font-family: 'Tahoma', 'Arial', sans-serif; 
-            background-color: #1e1e1e; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        /* تنسيق هيكل الآلة الحاسبة (لوحة التصميم) */
-        .calculator { 
-            background: #2d2d2d; 
-            padding: 30px; 
-            border-radius: 16px; 
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3); 
-            width: 340px; 
-            text-align: center; 
-            border: 1px solid #3d3d3d;
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
         }
-        h2 { color: #ffffff; margin-bottom: 25px; font-size: 20px; font-weight: bold; }
-        label { display: block; margin: 12px 0 6px; font-size: 13px; color: #aaaaaa; text-align: right; }
-        
-        /* تنسيق خانات الإدخال والقائمة المنسدلة بحواف دائرية */
-        input, select { 
-            width: 100%; 
-            padding: 12px; 
-            margin-bottom: 15px; 
-            background-color: #3b3b3b;
-            border: 1px solid #4d4d4d; 
-            border-radius: 8px; 
-            box-sizing: border-box; 
-            text-align: center; 
-            font-size: 16px; 
+        h2 {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
             color: white;
-            outline: none;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 15px;
         }
-        input:focus { border-color: #4CAF50; }
-        
-        /* تنسيق زر الحساب التفاعلي بحوافه الناعمة */
-        button { 
-            width: 100%; 
-            padding: 14px; 
-            background-color: #4CAF50; 
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 16px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            transition: background-color 0.3s; 
-            margin-top: 10px;
+        button:hover {
+            background-color: #0056b3;
         }
-        button:hover { background-color: #45a049; }
-        
-        /* تنسيق النتيجة لتبدو مميزة وزرقاء واضحة */
-        .result { margin-top: 25px; font-size: 20px; font-weight: bold; color: #1E90FF; min-height: 30px; }
-        
-        /* حقوق التصميم في الأسفل */
-        .credits { 
-            margin-top: 30px; 
-            font-size: 12px; 
-            color: #777777; 
-            border-top: 1px solid #3d3d3d; 
-            padding-top: 15px; 
+        .alert {
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            display: none; /* مخفي افتراضياً ويظهر عند النتيجة */
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
     </style>
 </head>
 <body>
 
-    <div class="calculator">
-        <h2>=== الآلة الحاسبة الذكية ===</h2>
+<div class="container">
+    <h2>💼 طلب التوظيف الآلي</h2>
+    
+    <form id="jobForm" onsubmit="evaluateApplication(event)">
+        <div class="form-group">
+            <label>الاسم الكريم:</label>
+            <input type="text" id="name" required placeholder="أدخل اسمك الكامل">
+        </div>
         
-        <label>الرقم الأول:</label>
-        <input type="number" id="num1" placeholder="أدخل الرقم الأول">
+        <div class="form-group">
+            <label>العمر:</label>
+            <input type="number" id="age" required placeholder="مثال: 25">
+        </div>
 
-        <label>العملية الحسابية:</label>
-        <select id="operation">
-            <option value="+">+</option>
-            <option value="-">-</option>
-            <option value="*">×</option>
-            <option value="/">÷</option>
-        </select>
+        <div class="form-group">
+            <label>الشهادة العلمية:</label>
+            <input type="text" id="degree" required placeholder="مثال: بكالوريوس">
+        </div>
 
-        <label>الرقم الثاني:</label>
-        <input type="number" id="num2" placeholder="أدخل الرقم الثاني">
+        <div class="form-group">
+            <label>التخصص:</label>
+            <select id="specialty">
+                <option value="طب">طب</option>
+                <option value="هندسة">هندسة</option>
+                <option value="صيدلة">صيدلة</option>
+                <option value="تخصص آخر">تخصص آخر</option>
+            </select>
+        </div>
 
-        <button onclick="calculate()">احسب النتيجة</button>
+        <button type="submit">تقديم الطلب وتقييمه</button>
+    </form>
 
-        <div class="result" id="lbl_result"></div>
+    <div id="resultAlert" class="alert"></div>
+</div>
 
-        <div class="credits">تصميم: أ. عبد الله علي المطرفي</div>
-    </div>
+<script>
+function evaluateApplication(event) {
+    // منع الصفحة من إعادة التحميل وتفريغ الحقول
+    event.preventDefault();
 
-    <script>
-        function calculate() {
-            // جلب القيم من واجهة الـ HTML
-            let num1Input = document.getElementById("num1").value;
-            let num2Input = document.getElementById("num2").value;
-            let operation = document.getElementById("operation").value;
-            let resultDiv = document.getElementById("lbl_result");
-            
-            // التحقق من المدخلات الفراغية
-            if (num1Input === "" || num2Input === "") {
-                resultDiv.style.color = "#ff4444";
-                resultDiv.innerText = "تنبيه: الرجاء إدخال الأرقام أولاً";
-                return;
-            }
+    // جلب القيم من العناصر
+    let name = document.getElementById('name').value.trim();
+    let ageRaw = document.getElementById('age').value.trim();
+    let degree = document.getElementById('degree').value.trim();
+    let specialty = document.getElementById('specialty').value;
+    let resultAlert = document.getElementById('resultAlert');
 
-            let num1 = parseFloat(num1Input);
-            let num2 = parseFloat(num2Input);
-            let result;
-            let opSign;
+    if (!name) name = "أيها المتقدم";
 
-            // إجراء العمليات الحسابية
-            if (operation === "+") { result = num1 + num2; opSign = "+"; }
-            else if (operation === "-") { result = num1 - num2; opSign = "-"; }
-            else if (operation === "*") { result = num1 * num2; opSign = "×"; }
-            else if (operation === "/") {
-                if (num2 === 0) {
-                    resultDiv.style.color = "#ff4444";
-                    resultDiv.innerText = "خطأ: لا يمكن القسمة على صفر!";
-                    return;
-                }
-                result = num1 / num2;
-                opSign = "÷";
-            }
+    let age = parseInt(ageRaw);
+    if (isNaN(age)) {
+        resultAlert.className = "alert error";
+        resultAlert.innerText = "خطأ: الرجاء إدخال العمر كأرقام فقط.";
+        resultAlert.style.display = "block";
+        return;
+    }
 
-            // عرض النتيجة بالتنسيق والخط الأزرق الجميل
-            resultDiv.style.color = "#1E90FF";
-            resultDiv.innerText = num1 + " " + opSign + " " + num2 + " = " + result;
+    // الشروط المدمجة
+    let acceptedSpecialties = ["طب", "هندسة", "صيدلة"];
+    let ageInvalid = age > 30;
+    let specialtyInvalid = !acceptedSpecialties.includes(specialty);
+
+    // فحص الشروط وعرض النتيجة دون تفريغ الحقول
+    if (!ageInvalid && !specialtyInvalid) {
+        resultAlert.className = "alert success";
+        resultAlert.innerText = `🎉 أهلاً بك يا ${name}، سيتم الاتصال بك لتحديد موعد المقابلة لشهادة (${degree}) في تخصص (${specialty}).`;
+    } else {
+        resultAlert.className = "alert error";
+        if (ageInvalid && specialty_invalid) {
+            resultAlert.innerText = `❌ عذراً يا ${name}، لا نستطيع توظيفك لأن عمرك تجاوز 30 سنة، والتخصص المطلوب غير متوفر حالياً.`;
+        } else if (ageInvalid) {
+            resultAlert.innerText = `❌ عذراً يا ${name}، لا نستطيع توظيفك لأن عمرك تجاوز 30 سنة.`;
+        } else {
+            resultAlert.innerText = `❌ عذراً يا ${name}، لا نستطيع توظيفك لأن تخصص (${specialty}) غير مطلوب حالياً، نحن نقبل فقط تخصصات (طب، هندسة، صيدلة).`;
         }
-    </script>
+    }
+
+    // إظهار صندوق النتيجة للمستخدم
+    resultAlert.style.display = "block";
+}
+</script>
+
 </body>
 </html>
